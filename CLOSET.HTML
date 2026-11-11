@@ -1,0 +1,939 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#dff4ff">
+<title>TIDY CLOSET</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --fondo: #e2f4ff;
+  --celeste: #bce5fa;
+  --azul: #55a4cc;
+  --oscuro: #28536a;
+  --blanco: #ffffff;
+  --texto: #304b5b;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: var(--fondo);
+  color: var(--texto);
+}
+
+.app {
+  max-width: 440px;
+  min-height: 100vh;
+  margin: auto;
+  background: #f7fcff;
+  padding-bottom: 90px;
+  position: relative;
+}
+
+header {
+  background: linear-gradient(135deg, #c9edff, #e6f7ff);
+  padding: 22px 18px;
+  border-radius: 0 0 25px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  background: white;
+  color: var(--azul);
+  width: 45px;
+  height: 45px;
+  border-radius: 15px;
+  display: grid;
+  place-items: center;
+  font-size: 25px;
+}
+
+.logo h2 {
+  font-size: 17px;
+  letter-spacing: 2px;
+  color: var(--oscuro);
+}
+
+.logo small {
+  font-size: 9px;
+  color: #6e96aa;
+  letter-spacing: 2px;
+}
+
+main {
+  padding: 18px;
+}
+
+.pagina {
+  display: none;
+}
+
+.pagina.activa {
+  display: block;
+}
+
+h1 {
+  font-size: 25px;
+  color: var(--oscuro);
+  margin-bottom: 8px;
+}
+
+h3 {
+  color: var(--oscuro);
+}
+
+.descripcion {
+  color: #7b929f;
+  font-size: 12px;
+  margin-bottom: 18px;
+  line-height: 1.5;
+}
+
+.hero {
+  background: linear-gradient(135deg, #c6eaff, #e8f7ff);
+  border-radius: 23px;
+  padding: 23px;
+  margin-bottom: 22px;
+}
+
+.hero h1 {
+  font-size: 27px;
+  line-height: 1.2;
+}
+
+.hero p {
+  font-size: 12px;
+  color: #587b8e;
+  margin: 10px 0 15px;
+  line-height: 1.5;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.boton {
+  border: none;
+  background: var(--azul);
+  color: white;
+  border-radius: 13px;
+  padding: 12px 16px;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.boton-secundario {
+  border: none;
+  background: #e4f4fc;
+  color: #397d9e;
+  border-radius: 12px;
+  padding: 10px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.encabezado-seccion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 22px 0 12px;
+}
+
+.encabezado-seccion h2 {
+  font-size: 18px;
+  color: var(--oscuro);
+}
+
+.categorias {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 9px;
+}
+
+.categoria {
+  border: 1px solid #dceef7;
+  background: white;
+  border-radius: 16px;
+  padding: 13px 5px;
+  text-align: center;
+  color: var(--oscuro);
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.categoria span {
+  display: block;
+  font-size: 24px;
+  margin-bottom: 6px;
+}
+
+.categoria.seleccionada {
+  background: #d7f0ff;
+  border-color: var(--azul);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.prenda {
+  background: white;
+  border-radius: 17px;
+  overflow: hidden;
+  border: 1px solid #e4eff5;
+  box-shadow: 0 5px 15px #5d9db51a;
+  position: relative;
+}
+
+.prenda img {
+  width: 100%;
+  height: 145px;
+  object-fit: cover;
+  background: #eaf6fc;
+}
+
+.prenda-info {
+  padding: 10px;
+}
+
+.prenda-info h3 {
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+.prenda-info small {
+  color: #8196a2;
+  font-size: 10px;
+}
+
+.acciones {
+  display: flex;
+  gap: 5px;
+  margin-top: 9px;
+}
+
+.acciones button {
+  flex: 1;
+  border: none;
+  padding: 7px 4px;
+  border-radius: 8px;
+  background: #e9f6fc;
+  color: #397b9e;
+  font-size: 10px;
+}
+
+.corazon {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  border: none;
+  background: white;
+  color: #df6b96;
+  border-radius: 50%;
+  width: 31px;
+  height: 31px;
+  font-size: 18px;
+}
+
+.formulario {
+  background: white;
+  padding: 17px;
+  border-radius: 19px;
+  box-shadow: 0 5px 20px #5d9db51a;
+}
+
+.campo {
+  margin-bottom: 15px;
+}
+
+.campo label {
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 7px;
+  color: #527488;
+}
+
+.campo input,
+.campo select {
+  width: 100%;
+  border: 1px solid #dceaf1;
+  border-radius: 12px;
+  padding: 12px;
+  outline: none;
+  background: #fbfdff;
+  color: var(--texto);
+}
+
+.preview {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-top: 10px;
+  display: none;
+}
+
+.barra {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 440px;
+  background: white;
+  border-top: 1px solid #e5eff5;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  padding: 10px 3px;
+  padding-bottom: max(10px, env(safe-area-inset-bottom));
+  z-index: 10;
+}
+
+.nav {
+  border: none;
+  background: transparent;
+  color: #8ca2ae;
+  font-size: 9px;
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+}
+
+.nav span {
+  font-size: 21px;
+}
+
+.nav.activo {
+  color: var(--azul);
+  font-weight: bold;
+}
+
+.outfit {
+  background: white;
+  border-radius: 17px;
+  padding: 14px;
+  margin-bottom: 13px;
+  border: 1px solid #e4eff5;
+}
+
+.outfit h3 {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.outfit small {
+  color: #8498a4;
+}
+
+.fotos-outfit {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin: 12px 0;
+}
+
+.fotos-outfit img {
+  width: 100%;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.vacio {
+  grid-column: 1/-1;
+  text-align: center;
+  background: white;
+  border: 1px dashed #bcddeb;
+  padding: 25px;
+  border-radius: 15px;
+  color: #7b929f;
+  font-size: 12px;
+}
+
+.buscador {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #dceaf1;
+  border-radius: 12px;
+  margin: 10px 0 14px;
+  background: white;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #193c5066;
+  z-index: 20;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.modal-contenido {
+  background: #f7fcff;
+  width: 100%;
+  max-width: 440px;
+  padding: 20px;
+  border-radius: 23px 23px 0 0;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.seleccion-prendas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.seleccion-prendas button {
+  border: 2px solid transparent;
+  background: white;
+  border-radius: 10px;
+  padding: 5px;
+  font-size: 10px;
+}
+
+.seleccion-prendas button.elegida {
+  border-color: var(--azul);
+}
+
+.seleccion-prendas img {
+  width: 100%;
+  height: 75px;
+  object-fit: cover;
+  border-radius: 7px;
+}
+
+@media (min-width: 600px) {
+  body { padding: 20px 0; }
+  .app { border-radius: 25px; }
+  .barra { bottom: 20px; border-radius: 0 0 25px 25px; }
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">✧</div>
+    <div>
+      <h2>TIDY CLOSET</h2>
+      <small>VISTE CON ESTILO</small>
+    </div>
+  </div>
+  <div>🩵</div>
+</header>
+
+<main>
+
+<!-- INICIO -->
+<section id="inicio" class="pagina activa">
+  <div class="hero">
+    <p>BIENVENIDA A TU ARMARIO DIGITAL</p>
+    <h1>Un armario,<br>mil posibilidades.</h1>
+    <p>Organiza tus prendas y descubre nuevas combinaciones para cada ocasión.</p>
+    <button class="boton" onclick="ir('armario')">Explorar mi closet →</button>
+  </div>
+
+  <div class="encabezado-seccion">
+    <h2>Explora categorías</h2>
+  </div>
+  <div class="categorias" id="categorias-inicio"></div>
+
+  <div class="encabezado-seccion">
+    <h2>Mis últimas prendas</h2>
+  </div>
+  <div class="grid" id="ultimas-prendas"></div>
+</section>
+
+<!-- ARMARIO -->
+<section id="armario" class="pagina">
+  <h1>Mi armario</h1>
+  <p class="descripcion">Todas tus prendas organizadas en un solo lugar.</p>
+
+  <input class="buscador" id="buscar" placeholder="Buscar prenda..." oninput="mostrarArmario()">
+
+  <select class="buscador" id="filtro" onchange="mostrarArmario()">
+    <option value="Todas">Todas las categorías</option>
+  </select>
+
+  <div class="grid" id="lista-prendas"></div>
+</section>
+
+<!-- AGREGAR -->
+<section id="agregar" class="pagina">
+  <h1 id="titulo-formulario">Nueva prenda</h1>
+  <p class="descripcion">Registra una nueva pieza para tu colección.</p>
+
+  <form class="formulario" id="form-prenda" onsubmit="guardarPrenda(event)">
+    <div class="campo">
+      <label>Nombre de la prenda</label>
+      <input id="nombre" required placeholder="Ej. Blusa elegante">
+    </div>
+
+    <div class="campo">
+      <label>Categoría</label>
+      <select id="categoria" required>
+        <option>Blusas</option>
+        <option>Pantalones</option>
+        <option>Vestidos</option>
+        <option>Faldas</option>
+        <option>Zapatos</option>
+        <option>Accesorios</option>
+      </select>
+    </div>
+
+    <div class="campo">
+      <label>Fotografía</label>
+      <input id="fotografia" type="file" accept="image/*" onchange="previsualizar(event)">
+      <img id="vista-previa" class="preview" alt="Vista previa">
+    </div>
+
+    <button class="boton" style="width:100%" id="boton-guardar">Guardar prenda</button>
+    <button type="button" class="boton-secundario" style="width:100%;margin-top:8px;display:none" id="cancelar" onclick="limpiarFormulario()">Cancelar</button>
+  </form>
+</section>
+
+<!-- FAVORITOS -->
+<section id="favoritos" class="pagina">
+  <h1>Mis favoritas ♡</h1>
+  <p class="descripcion">Tus prendas preferidas para crear looks especiales.</p>
+  <div class="grid" id="lista-favoritos"></div>
+</section>
+
+<!-- OUTFITS -->
+<section id="outfits" class="pagina">
+  <h1>Mis outfits ✧</h1>
+  <p class="descripcion">Crea combinaciones para cada ocasión.</p>
+
+  <div class="formulario" style="margin-bottom:15px">
+    <h3>Diseña tu combinación</h3>
+    <p class="descripcion" style="margin-top:8px">Selecciona las prendas que quieres combinar.</p>
+    <button class="boton" style="width:100%" onclick="abrirModal()">＋ Crear outfit</button>
+  </div>
+
+  <div id="lista-outfits"></div>
+</section>
+
+</main>
+
+<!-- NAVEGACIÓN -->
+<nav class="barra">
+  <button class="nav activo" onclick="ir('inicio',this)"><span>⌂</span>Inicio</button>
+  <button class="nav" onclick="ir('armario',this)"><span>▦</span>Armario</button>
+  <button class="nav" onclick="nuevo(this)"><span>＋</span>Agregar</button>
+  <button class="nav" onclick="ir('outfits',this)"><span>✧</span>Outfits</button>
+  <button class="nav" onclick="ir('favoritos',this)"><span>♡</span>Favoritas</button>
+</nav>
+
+<!-- MODAL OUTFIT -->
+<div class="modal" id="modal">
+  <div class="modal-contenido">
+    <h2>Crear combinación</h2>
+    <br>
+    <div class="campo">
+      <label>Nombre del outfit</label>
+      <input id="nombre-outfit" placeholder="Ej. Look casual">
+    </div>
+    <div class="campo">
+      <label>Ocasión</label>
+      <select id="ocasion">
+        <option>Casual</option>
+        <option>Trabajo</option>
+        <option>Fiesta</option>
+        <option>Formal</option>
+        <option>Deportivo</option>
+        <option>Salida especial</option>
+      </select>
+    </div>
+    <p class="descripcion">Selecciona las prendas:</p>
+    <div class="seleccion-prendas" id="seleccion-prendas"></div>
+    <button class="boton" style="width:100%" onclick="guardarOutfit()">Guardar outfit</button>
+    <button class="boton-secundario" style="width:100%;margin-top:8px" onclick="cerrarModal()">Cancelar</button>
+  </div>
+</div>
+
+</div>
+
+<script>
+// DATOS Y ALMACENAMIENTO
+const categorias = [
+  {nombre:"Blusas", icono:"👚"},
+  {nombre:"Pantalones", icono:"👖"},
+  {nombre:"Vestidos", icono:"👗"},
+  {nombre:"Faldas", icono:"🩱"},
+  {nombre:"Zapatos", icono:"👟"},
+  {nombre:"Accesorios", icono:"👜"}
+];
+
+const ejemplos = [
+  ["Blusa celeste","Blusas","https://images.unsplash.com/photo-1564257577-1e2e6e3c2e2f?w=600"],
+  ["Pantalón elegante","Pantalones","https://images.unsplash.com/photo-1506629905607-d9d7a2c7c5c3?w=600"],
+  ["Vestido de verano","Vestidos","https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600"],
+  ["Falda plisada","Faldas","https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=600"],
+  ["Zapatillas urbanas","Zapatos","https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600"],
+  ["Bolso clásico","Accesorios","https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600"]
+];
+
+function leer(clave, defecto) {
+  try {
+    const dato = JSON.parse(localStorage.getItem(clave));
+    return dato || defecto;
+  } catch {
+    return defecto;
+  }
+}
+
+let prendas = leer("tidy_prendas",
+  ejemplos.map((p,i)=>({
+    id:i+1,nombre:p[0],categoria:p[1],
+    imagen:p[2],favorita:false
+  }))
+);
+
+let outfits = leer("tidy_outfits",[]);
+let editando = null;
+let imagenActual = "";
+let seleccionadas = [];
+
+function guardarDatos() {
+  try {
+    localStorage.setItem("tidy_prendas",JSON.stringify(prendas));
+    localStorage.setItem("tidy_outfits",JSON.stringify(outfits));
+  } catch(e) {
+    alert("No hay espacio suficiente. Intenta con una foto más pequeña.");
+  }
+}
+
+// NAVEGACIÓN
+function ir(pagina, boton) {
+  document.querySelectorAll(".pagina").forEach(p=>p.classList.remove("activa"));
+  document.getElementById(pagina).classList.add("activa");
+
+  document.querySelectorAll(".nav").forEach(n=>n.classList.remove("activo"));
+  if(boton) boton.classList.add("activo");
+  else {
+    const botones = document.querySelectorAll(".nav");
+    const indice = ["inicio","armario","agregar","outfits","favoritos"].indexOf(pagina);
+    if(botones[indice]) botones[indice].classList.add("activo");
+  }
+
+  if(pagina==="inicio") mostrarInicio();
+  if(pagina==="armario") mostrarArmario();
+  if(pagina==="favoritos") mostrarFavoritos();
+  if(pagina==="outfits") mostrarOutfits();
+
+  window.scrollTo(0,0);
+}
+
+function nuevo(boton) {
+  limpiarFormulario();
+  ir("agregar",boton);
+}
+
+// CATEGORÍAS
+function crearCategorias() {
+  const contenedor = document.getElementById("categorias-inicio");
+
+  contenedor.innerHTML = categorias.map(c=>`
+    <button class="categoria" onclick="filtrar('${c.nombre}')">
+      <span>${c.icono}</span>${c.nombre}
+    </button>
+  `).join("");
+
+  document.getElementById("filtro").innerHTML =
+    '<option value="Todas">Todas las categorías</option>' +
+    categorias.map(c=>`<option>${c.nombre}</option>`).join("");
+}
+
+function filtrar(nombre) {
+  document.getElementById("filtro").value=nombre;
+  ir("armario");
+}
+
+// SEGURIDAD DE TEXTO
+function escapar(texto) {
+  return String(texto).replace(/[&<>"']/g, letra => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",
+    '"':"&quot;","'":"&#39;"
+  }[letra]));
+}
+
+// TARJETA DE PRENDA
+function tarjeta(p) {
+  return `
+  <article class="prenda">
+    <img src="${p.imagen}" alt="${escapar(p.nombre)}"
+      onerror="this.src='https://images.unsplash.com/photo-1483985988355-763728e1935b?w=500'">
+    <button class="corazon" onclick="favorito(${p.id})">
+      ${p.favorita?"♥":"♡"}
+    </button>
+    <div class="prenda-info">
+      <h3>${escapar(p.nombre)}</h3>
+      <small>${escapar(p.categoria)}</small>
+      <div class="acciones">
+        <button onclick="editar(${p.id})">Editar</button>
+        <button onclick="eliminar(${p.id})">Eliminar</button>
+      </div>
+    </div>
+  </article>`;
+}
+
+// INICIO
+function mostrarInicio() {
+  document.getElementById("ultimas-prendas").innerHTML =
+    prendas.length
+      ? prendas.slice(-4).reverse().map(tarjeta).join("")
+      : '<div class="vacio">Todavía no tienes prendas.</div>';
+}
+
+// ARMARIO
+function mostrarArmario() {
+  const filtro=document.getElementById("filtro").value;
+  const busqueda=document.getElementById("buscar").value.toLowerCase();
+
+  const lista=prendas.filter(p=>
+    (filtro==="Todas" || p.categoria===filtro) &&
+    p.nombre.toLowerCase().includes(busqueda)
+  );
+
+  document.getElementById("lista-prendas").innerHTML =
+    lista.length
+      ? lista.map(tarjeta).join("")
+      : '<div class="vacio">No se encontraron prendas.</div>';
+}
+
+// FAVORITOS
+function favorito(id) {
+  const p=prendas.find(x=>x.id===id);
+  if(!p) return;
+  p.favorita=!p.favorita;
+  guardarDatos();
+  actualizar();
+}
+
+function mostrarFavoritos() {
+  const lista=prendas.filter(p=>p.favorita);
+  document.getElementById("lista-favoritos").innerHTML =
+    lista.length
+      ? lista.map(tarjeta).join("")
+      : '<div class="vacio">Aún no tienes prendas favoritas. Pulsa el corazón de una prenda.</div>';
+}
+
+// AGREGAR Y EDITAR
+function previsualizar(evento) {
+  const archivo=evento.target.files[0];
+  if(!archivo) return;
+
+  if(archivo.size>3*1024*1024) {
+    alert("La imagen debe pesar menos de 3 MB.");
+    evento.target.value="";
+    return;
+  }
+
+  const lector=new FileReader();
+  lector.onload=()=>{
+    imagenActual=lector.result;
+    const vista=document.getElementById("vista-previa");
+    vista.src=imagenActual;
+    vista.style.display="block";
+  };
+  lector.readAsDataURL(archivo);
+}
+
+function guardarPrenda(evento) {
+  evento.preventDefault();
+
+  const nombre=document.getElementById("nombre").value.trim();
+  const categoria=document.getElementById("categoria").value;
+
+  if(!nombre) return;
+
+  if(editando!==null) {
+    const p=prendas.find(x=>x.id===editando);
+    if(p) {
+      p.nombre=nombre;
+      p.categoria=categoria;
+      if(imagenActual) p.imagen=imagenActual;
+    }
+  } else {
+    prendas.push({
+      id:Date.now(),
+      nombre,
+      categoria,
+      imagen:imagenActual || ejemplos[0][2],
+      favorita:false
+    });
+  }
+
+  guardarDatos();
+  limpiarFormulario();
+  actualizar();
+  ir("armario");
+}
+
+function editar(id) {
+  const p=prendas.find(x=>x.id===id);
+  if(!p) return;
+
+  editando=id;
+  imagenActual=p.imagen;
+
+  document.getElementById("nombre").value=p.nombre;
+  document.getElementById("categoria").value=p.categoria;
+  document.getElementById("titulo-formulario").textContent="Editar prenda";
+  document.getElementById("boton-guardar").textContent="Guardar cambios";
+  document.getElementById("cancelar").style.display="block";
+
+  const vista=document.getElementById("vista-previa");
+  vista.src=p.imagen;
+  vista.style.display="block";
+
+  ir("agregar");
+}
+
+function limpiarFormulario() {
+  editando=null;
+  imagenActual="";
+  document.getElementById("form-prenda").reset();
+  document.getElementById("titulo-formulario").textContent="Nueva prenda";
+  document.getElementById("boton-guardar").textContent="Guardar prenda";
+  document.getElementById("cancelar").style.display="none";
+  document.getElementById("vista-previa").style.display="none";
+}
+
+// ELIMINAR
+function eliminar(id) {
+  const p=prendas.find(x=>x.id===id);
+  if(!p || !confirm("¿Deseas eliminar esta prenda?")) return;
+
+  prendas=prendas.filter(x=>x.id!==id);
+  outfits=outfits.map(o=>({
+    ...o,
+    ids:o.ids.filter(i=>i!==id)
+  }));
+
+  guardarDatos();
+  actualizar();
+}
+
+// OUTFITS
+function abrirModal() {
+  if(!prendas.length) {
+    alert("Primero agrega prendas a tu armario.");
+    return;
+  }
+
+  seleccionadas=[];
+
+  document.getElementById("seleccion-prendas").innerHTML =
+    prendas.map(p=>`
+      <button id="seleccion-${p.id}" onclick="seleccionar(${p.id})">
+        <img src="${p.imagen}" alt="">
+        ${escapar(p.nombre)}
+      </button>
+    `).join("");
+
+  document.getElementById("modal").style.display="flex";
+}
+
+function cerrarModal() {
+  document.getElementById("modal").style.display="none";
+}
+
+function seleccionar(id) {
+  if(seleccionadas.includes(id)) {
+    seleccionadas=seleccionadas.filter(x=>x!==id);
+  } else {
+    seleccionadas.push(id);
+  }
+
+  document.getElementById("seleccion-"+id)
+    .classList.toggle("elegida",seleccionadas.includes(id));
+}
+
+function guardarOutfit() {
+  if(!seleccionadas.length) {
+    alert("Selecciona al menos una prenda.");
+    return;
+  }
+
+  outfits.unshift({
+    id:Date.now(),
+    nombre:document.getElementById("nombre-outfit").value.trim() || "Mi combinación",
+    ocasion:document.getElementById("ocasion").value,
+    ids:seleccionadas
+  });
+
+  guardarDatos();
+  cerrarModal();
+  mostrarOutfits();
+  alert("¡Outfit guardado correctamente!");
+}
+
+function mostrarOutfits() {
+  document.getElementById("lista-outfits").innerHTML =
+    outfits.length ? outfits.map(o=>{
+      const piezas=o.ids.map(id=>prendas.find(p=>p.id===id)).filter(Boolean);
+
+      return `
+      <article class="outfit">
+        <h3>${escapar(o.nombre)}</h3>
+        <small>${escapar(o.ocasion)} · ${piezas.length} prendas</small>
+        <div class="fotos-outfit">
+          ${piezas.map(p=>`<img src="${p.imagen}" alt="${escapar(p.nombre)}">`).join("")}
+        </div>
+        <button class="boton-secundario" onclick="eliminarOutfit(${o.id})">Eliminar outfit</button>
+      </article>`;
+    }).join("")
+    : '<div class="vacio">Todavía no has creado combinaciones. ¡Crea tu primer outfit!</div>';
+}
+
+function eliminarOutfit(id) {
+  if(!confirm("¿Eliminar este outfit?")) return;
+  outfits=outfits.filter(o=>o.id!==id);
+  guardarDatos();
+  mostrarOutfits();
+}
+
+// ACTUALIZAR VISTAS
+function actualizar() {
+  mostrarInicio();
+  mostrarArmario();
+  mostrarFavoritos();
+  mostrarOutfits();
+}
+
+// INICIAR APLICACIÓN
+crearCategorias();
+mostrarInicio();
+mostrarArmario();
+mostrarFavoritos();
+mostrarOutfits();
+</script>
+
+</body>
+</html>
